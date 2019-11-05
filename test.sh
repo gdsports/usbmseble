@@ -29,8 +29,8 @@ arduino --pref "compiler.warning_level=none" \
 --pref "update.check=false" \
 --pref "editor.external=true" --save-prefs
 cd ${IDEDIR}/portable/sketchbook
-ln -s ~/Sync/usbmseble/USBMSEBLE .
-find USBMSEBLE/ -name '*.ino' -print0 | xargs -0 -n 1 $CC
+#ln -s ~/Sync/usbmseble/USBMSEBLE .
+#find USBMSEBLE/ -name '*.ino' -print0 | xargs -0 -n 1 $CC
 # Install for SparkFun NRF52840
 #cp -R ~/Sync/nRF52840_Breakout_MDBT50Q/Firmware/Arduino/variants/ ${IDEDIR}/portable/packages/adafruit/hardware/nrf52/0.10.1/
 #cat ~/Sync/nRF52840_Breakout_MDBT50Q/Firmware/Arduino/sparkfun_boards.txt >>${IDEDIR}/portable/packages/adafruit/hardware/nrf52/0.10.1/boards.txt

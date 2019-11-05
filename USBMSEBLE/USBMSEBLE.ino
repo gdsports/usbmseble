@@ -131,11 +131,12 @@ void loop()
   // 0,8 = keyboard HID report
   // 1,4 = mouse HID report
   //
-  uint8_t bytesAvail;
-  while ((bytesAvail = comavailable()) > 0) {
-    uint8_t inByte = comread();
+  int bytesAvail = comavailable();
+  while (bytesAvail > 0) {
     hid_mouse_report_t mouse_report;
-    dbprint("inByte="); dbprintln(inByte);
+    uint8_t inByte = comread();
+    bytesAvail--;
+    dbprintln(); dbprint("inByte="); dbprintln(inByte);
     switch (message_state) {
       case WAITSTX:
         dbprintln("WAITSTX");
@@ -166,7 +167,9 @@ void loop()
         }
         else {
           if (bytesAvail > 1) {
-            msgCount += comreadBytes(&message[msgCount], min(msgLen-msgCount, bytesAvail));
+            size_t bytesIn = comreadBytes(&message[msgCount], min(msgLen-msgCount, bytesAvail));
+            msgCount += bytesIn;
+            bytesAvail -= bytesIn;
             if (msgCount >= msgLen) {
               message_state = WAITETX;
             }
